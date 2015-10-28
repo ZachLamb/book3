@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
+</head>
+<body>
+  <div class="container flow-text">
+  <h1 id="hackathon-business-locations">Hackathon - Business Locations</h1>
+<p>You are approached by a business developer to get advice on where to build a
+new store in Phoenix, AZ. There are currently six candidates. Use the Yelp
+dataset and come up with your own scoring scheme to identify the best location
+to recommend.</p>
+<h2 id="report">Report</h2>
+<p><a href="report.html">Read the Report</a></p>
+<h2 id="business-types">Business Types</h2>
+<p>As a team, choose one of the following business types to work on:</p>
+<ul>
+<li>A new full-service daycare center</li>
+<li>A new full-service car wash</li>
+<li>A new 24-hours gym</li>
+<li>A new 24-hours diner</li>
+<li>A new swimming pool</li>
+<li>A new organic food store</li>
+<li>A new sushi buffet</li>
+</ul>
+<h2 id="scoring-method">Scoring Method</h2>
+<p>For this hackathon, you will use a scoring method that is based on a series of
+20 Yes/No questions that can be applied to each candidate location. The candidate
+location that has the most number of Yes’s is the most viable location.</p>
+<p>Each Yes/No question generally should take on the form of</p>
+<p>  <em>Does the location have X nearby?</em></p>
+<p>where X is a feature that you think would be useful for the business to be viable.</p>
+<p>Two examples of such questions are:</p>
+<ol>
+<li>Does the location have <em>at least one McDonald’s within one mile</em>?</li>
+<li>Does the location have <em>at least ten businesses with 100 or more reviews within one mile</em>?</li>
+</ol>
+<h2 id="coding">Coding</h2>
+<p>Implement scoring functions and visualize how these candidate locations are
+scored. The skeleton code is provided for you in <a href="report.html">report.html</a>.</p>
+<h2 id="grading">Grading</h2>
+<p>Each person must implement at least two questions to receive credits for this
+hackathon.</p>
+<h2 id="submissions">Submissions</h2>
+<h3 id="business-type">Business Type</h3>
+<p>Our team chose to analyze candidate locations for (fill in the business type).</p>
+<h3 id="contributors">Contributors</h3>
+<p>The team members who contributed to this hackathon are:</p>
+<ul>
+<li>(Name)</li>
+<li>(Name)</li>
+<li>(Name)</li>
+<li>(Name)</li>
+<li>(Name)</li>
+<li>(Name)</li>
+</ul>
+<h3 id="20-questions">20 Questions</h3>
+<p>Our team came up with the following relevant questions:</p>
+<ol>
+<li><p>Does the location have any other 24 diners within 2 km? contributed by (Zach Lamb)</p>
+<p>We want to make sure that there are no competing businesses nearby.</p>
+</li>
+<li><p>Does the location have any other 24 hour businesses 2 km ? contributed by (Kari Santos)</p>
+<p>We want to make sure that people will be out near our location this time of day.</p>
+</li>
+<li><p>Does the location have any clubs within 2 km? contributed by (Kari Santos)</p>
+<p>People get hungry after going here. It is called the “Drunchies” or “Drunk Munchies”</p>
+</li>
+<li><p>Does the location have any bars within 2 km? contributed by (Heather Witte)</p>
+<p>People get hungry after going here. It is called the “Drunchies” or “Drunk Munchies”</p>
+</li>
+<li><p>Does the location have any music venues nearby? contributed by (Zach Lamb)</p>
+<p>This business will attract these types of people after shows are over</p>
+</li>
+<li><p>Does the location have any night life nearby? contributed by (Heather Witte)</p>
+<p>This is different from clubs or bars because there might be businesses that we are not aware of that will attract people.</p>
+</li>
+<li><p>Does the location have any movie theaters nearby? contributed by (Kari Santos)</p>
+<p> Diners are essential after a movie date night or Girls Night Out perhaps</p>
+</li>
+<li><p>Does the location have any three star or less locations nearby? contributed by (Name)</p>
+<p> Diners are not upscale.</p>
+</li>
+<li><p>Does the location have any 1 price range within 2 km? contributed by (Name)</p>
+<p>Diners are cheap.</p>
+</li>
+<li><p>Does the location have any record stores within 2 km? contributed by (Name)</p>
+<p>People who shop at record stores, tend to eat at diners.</p>
+</li>
+<li><p>Does the location have any thrift stores nearby? contributed by (Name)</p>
+<p>Same as above. People who shop at thrift, eat at diners.
+11.Does the location have any universities nearby? contributed by (Name)</p>
+<p>College students love diners.</p>
+</li>
+<li><p>Does the location have any hospitals within 2 km? contributed by (Name)</p>
+<p>Hospitals are 24 hours ,and people like the comfort food at diners.</p>
+</li>
+<li><p>Does the location have any hotels within 2 km? contributed by (Zach Lamb)</p>
+<p>People who travel like comfort food</p>
+</li>
+<li><p>Does the location have any upscale or trendy places within 2 km? contributed by (Name)</p>
+<p>We want to stay away from upscale or trendy areas.</p>
+</li>
+<li><p>Are there any religious/faith based groups nearby? contributed by (Name)</p>
+<p>People go out after church.</p>
+</li>
+<li><p>Does the location have any schools within 2 km? contributed by (Zach Lamb)</p>
+<p>People like to go out after school dances,graduation, or other school events</p>
+</li>
+<li><p>Does the location have any places that serve alchohol within 2 km? contributed by (Zach Lamb)</p>
+<p>A diner would be the place to go for after graduations,school plays, school events.</p>
+</li>
+<li>Does the location have any retirement places within 2 km? contributed by (Zach Lamb)</li>
+</ol>
+<p>Senior citizens like to go and reminiscent. Also , they like to eat early in the morning.</p>
+<p>  (A diner would be the place to go for after graduations,school plays, school events)</p>
+<ol>
+<li>Does the location have any dive bars but no wine bars within 2 km? contributed by (Name)</li>
+</ol>
+<p>Dive bars are less classy.</p>
+<p>  (A diner would be the place to go for after graduations,school plays, school events)</p>
+<ol>
+<li>Does the location have any places that require formal attire within 2 km? contributed by (Name)</li>
+</ol>
+<p>No one goes to a diner with formal attire.</p>
+<h3 id="conclusion">Conclusion</h3>
+<p>Our team collectively has implemented (N) scoring functions. Based on
+the scores, our team recommends location (1, 2, 3, 4, 5, or 6 from west to east),
+because it receives (m) out of (N) possible scores.</p>
+
+  </div>
+</body>
+</html>

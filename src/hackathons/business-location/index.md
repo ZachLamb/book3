@@ -71,19 +71,85 @@ The team members who contributed to this hackathon are:
 
 Our team came up with the following relevant questions:
 
-1. Does the location have ..... ? contributed by (Name)
+1. Does the location have any other 24 diners within 2 km? contributed by (Zach Lamb)
 
-  (one sentence justification why this question is important)
+  We want to make sure that there are no competing businesses nearby.
 
-1. Does the location have ..... ? contributed by (Name)
+2. Does the location have any other 24 hour businesses 2 km ? contributed by (Kari Santos)
 
-  (one sentence justification why this question is important)
+  We want to make sure that people will be out near our location this time of day.
 
-1. Does the location have ..... ? contributed by (Name)
+3. Does the location have any clubs within 2 km? contributed by (Kari Santos)
 
-  (one sentence justification why this question is important)
+  People get hungry after going here. It is called the "Drunchies" or "Drunk Munchies"
 
-(add more until you hit 20)
+4. Does the location have any bars within 2 km? contributed by (Heather Witte)
+
+  People get hungry after going here. It is called the "Drunchies" or "Drunk Munchies"
+
+5. Does the location have any music venues nearby? contributed by (Zach Lamb)
+
+  This business will attract these types of people after shows are over
+
+5. Does the location have any night life nearby? contributed by (Heather Witte)
+
+  This is different from clubs or bars because there might be businesses that we are not aware of that will attract people.
+6. Does the location have any movie theaters nearby? contributed by (Kari Santos)
+
+	Diners are essential after a movie date night or Girls Night Out perhaps
+7. Does the location have any three star or less locations nearby? contributed by (Name)
+
+	Diners are not upscale.
+8. Does the location have any 1 price range within 2 km? contributed by (Name)
+
+   Diners are cheap.
+9. Does the location have any record stores within 2 km? contributed by (Name)
+
+  People who shop at record stores, tend to eat at diners.
+
+10. Does the location have any thrift stores nearby? contributed by (Name)
+
+  Same as above. People who shop at thrift, eat at diners.
+11.Does the location have any universities nearby? contributed by (Name)
+
+  College students love diners.
+
+12. Does the location have any hospitals within 2 km? contributed by (Name)
+
+  Hospitals are 24 hours ,and people like the comfort food at diners.
+
+13. Does the location have any hotels within 2 km? contributed by (Zach Lamb)
+
+  People who travel like comfort food
+
+14. Does the location have any upscale or trendy places within 2 km? contributed by (Name)
+
+  We want to stay away from upscale or trendy areas.
+
+15. Are there any religious/faith based groups nearby? contributed by (Name)
+
+  People go out after church.
+
+16. Does the location have any schools within 2 km? contributed by (Zach Lamb)
+
+  People like to go out after school dances,graduation, or other school events
+17. Does the location have any places that serve alchohol within 2 km? contributed by (Zach Lamb)
+
+  A diner would be the place to go for after graduations,school plays, school events.
+18. Does the location have any retirement places within 2 km? contributed by (Zach Lamb)
+
+Senior citizens like to go and reminiscent. Also , they like to eat early in the morning.
+
+
+  (A diner would be the place to go for after graduations,school plays, school events)
+19. Does the location have any dive bars but no wine bars within 2 km? contributed by (Name)
+
+Dive bars are less classy.
+
+  (A diner would be the place to go for after graduations,school plays, school events)
+20. Does the location have any places that require formal attire within 2 km? contributed by (Name)
+
+No one goes to a diner with formal attire.
 
 ### Conclusion
 
