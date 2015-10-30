@@ -115,9 +115,16 @@ function solution1(){
 }
 
 function solution2(){
-    var unique = _.uniq(items,'Original User Name')
-    console.log(unique)
-    return unique
+    var allUsers = _.groupBy(items, 'Original User Name')
+    var sumOfTweets =_.mapValues(allUsers, function(d){
+    return d.length
+})
+    // console.log(sumOfTweets)
+  sorted = _.sortByOrder(_.pairs(sumOfTweets),function(d){return d[1]},'desc')
+  topTen = _.take(sorted,10)
+  result = _.object(topTen)
+  console.log(topTen)
+    return topTen
 }
 
 function solution3(){
