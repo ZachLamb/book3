@@ -100,7 +100,7 @@ Discuss some findings
 
     </div>
   </div>
-  
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
@@ -115,9 +115,16 @@ function solution1(){
 }
 
 function solution2(){
-    var unique = _.uniq(items,'Original User Name')
-    console.log(unique)
-    return unique
+    var allUsers = _.groupBy(items, 'Original User Name')
+    var sumOfTweets =_.mapValues(allUsers, function(d){
+    return d.length
+})
+    // console.log(sumOfTweets)
+  sorted = _.sortByOrder(_.pairs(sumOfTweets),function(d){return d[1]},'desc')
+  topTen = _.take(sorted,10)
+  result = _.object(topTen)
+  console.log(topTen)
+    return topTen
 }
 
 function solution3(){
@@ -143,7 +150,7 @@ function run(id, solutionFunc, data){
 }
 
 function loadDataThenRunSolutions(){
-  $.get({url: 'http://bigdatahci2015.github.io/data/twitter/nepal_local_tweets.json'})
+  $.get('http://bigdatahci2015.github.io/data/twitter/nepal_local_tweets.json')
     .done(function(data){
 
         items = data
@@ -162,7 +169,7 @@ function loadDataThenRunSolutions(){
      })
 }
 
-// loadDataThenRunSolutions()
+loadDataThenRunSolutions()
 
 // convert Markdown to html
 $('.markdown').each(function(){
