@@ -31,13 +31,14 @@
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chartist/0.9.4/chartist.min.css"></head>
+</head>
 <body>
 
   <div class="parallax-container">
     <div class="parallax">
       <img src="nepal.jpg">
       <h1 id="title">What are the patterns of image diffusion during the Nepal Earthquake?
-        <div class="authors">by Kari Santos, Heather Witte, Zachary Lamb, Fadhil Suhendi, Denis Kazakov</div>
+        <div class="authors">by Heather Witte, Kari Santos, Denis Kazakov, Fadhil Suhendi, Zach Lamb</div>
       </h1>
 
     </div>
@@ -48,14 +49,25 @@
       <div id="questions" class="collection with-header">
           <div class="collection-header">Questions</div>
           <section id="q1" class="question collection-item">
-              <h4>Does a user tweet in a language other than their default language? (contributed by Heather)</h4>
+              <h4>What language are the tweets in this dataset written in?(contributed by Heather)</h4>
               <div class="answer"></div>
           </section>
 
           <section id="q2" class="question collection-item">
+              <h4>What were average retweet ratios on each day?(assumption that as days pass on, people scroll twitter less => less retweets) (contributed by Denis)</h4>
+              <div class="answer"></div>
+          </section>
+
+          <section id="q3" class="question collection-item">
               <h4>What user's tweet got retweeted the most? (contributed by Zach)</h4>
               <div class="answer"></div>
           </section>
+
+          <section id="q4" class="question collection-item">
+              <h4>How many original tweet in location Kathmandu, Nepal? (contributed by Fadhil)</h4>
+              <div class="answer"></div>
+          </section>
+
           <section id="qKari" class="question collection-item">
               <h4>For retweeted images, does the number of followers of the original tweeter have a direct effect on the number of retweets? (contributed by Kari)</h4>
               <div class="answer"></div>
@@ -64,20 +76,6 @@
               Y axis = retweet count<br>
               It doesn't seem that the number of followers of the original tweeter has an effect on the number of retweets.
           </section>
-
-          
-
-          <section id="q3" class="question collection-item">
-              <h4>What were average retweet ratios on each day?(assumption that as days pass on, people scroll twitter less => less retweets) (contributed by Denis)</h4>
-              <div class="answer"></div>
-          </section>
-
-
-          <section id="q4" class="question collection-item">
-              <h4>How many original tweet in location Kathmandu, Nepal? (Fadhil Suhendi)</h4>
-              <div class="answer"></div>
-          </section>
-
 
       </div>
 
@@ -93,9 +91,12 @@
   <div class="section white container flow-text">
     <div class="markdown">
 
+
 # Discussion
 
 The answers submitted here probably cause more additional questions to be raised than full answers. For instance, what causes a tweet with an image to be retweeted? Is it the "interest" of the image? It doesn't seem to correlate with the number of followers of the original tweeter, but what if you looked at the follower count of the retweeters? If a tweet is retweeted by someone with a large following at any time in the retweet path, perhaps that's what makes it go viral. Do tweets with comments in less popular languages have less of a chance of going viral?  What is the typical "lifecycle" of a tweet and are there common patterns? How quickly to tweets leave the location of a disaster?
+
+For example, I began wondering how often users tweet in a language other than their user setting language, but found that all tweets in the dataset fit that criteria, since users tweeted in either Nepalese or Hindi, while their user setting was English. Since this finding was uninteresting, I decided to change my question to simply analyze the proportion of languages that users tweeted in. I think that these types of language-based questions would be interesting to apply to the entire set of tweets from the Nepal earthquakes, to see the patterns of diffusion across the entire world, and not just on the set of local tweets.
 
 More tweet data over a longer duration and a second round of analysis would prove very interesting.
 
@@ -119,15 +120,11 @@ function getRetweetCounts(data){
         return ( d["Rt"] == "Original Tweet (probably)"
             && _.startsWith(d["* Tweet Created At"],"4/26/15 "))
         });
-
-
     // there is at least one Image Id Str (592285978557075500)that shows up in 2
     // different original tweets, so run this through uniq
-
     original = _.uniq(original,function(d){
         return d["Image Id Str"];
     })
-
     
     var retweet =  _.filter(data, function(d){
         return ( d["Rt"] == "Retweet")
@@ -143,7 +140,6 @@ function getRetweetCounts(data){
     })
     return counts;
 }
-
 function solutionKari(){
     counts =  getRetweetCounts(items)
     counts = _.sortBy(counts, "followers");
@@ -168,16 +164,15 @@ var options = {
     //scaleMinSpace: 100
   }
 };
-
     new Chartist.Line('#chartKari', {
       labels: followerArr,
       series: [countArr]
     //labels: [1, 2, 3, 4],
     //series: [[100, 120, 180, 200]]
   }, options);
-
     return ''
 }
+
 function solution1(){
 
   var grouplang = _.groupBy(items, "Tweet Language")
@@ -190,20 +185,6 @@ function solution1(){
 }
 
 function solution2(){
-    var allUsers = _.groupBy(items, 'Original User Name')
-    var sumOfTweets =_.mapValues(allUsers, function(d){
-    return d.length
-})
-    // console.log(sumOfTweets)
-  sorted = _.sortByOrder(_.pairs(sumOfTweets),function(d){return d[1]},'desc')
-  topTen = _.take(sorted,10)
-  result = _.object(topTen)
-  console.log(topTen)
-    return topTen
-}
-
-
-function solution3(){
     retweets = _.filter(items, function(n){
       return n.Rt == "Retweet"
     })
@@ -219,27 +200,33 @@ function solution3(){
     //* Tweet Created At -> each day, divide # of retweets by size of group
 }
 
+function solution3(){
+        var allUsers = _.groupBy(items, 'Original User Name')
+    var sumOfTweets =_.mapValues(allUsers, function(d){
+    return d.length
+})
+    // console.log(sumOfTweets)
+  sorted = _.sortByOrder(_.pairs(sumOfTweets),function(d){return d[1]},'desc')
+  topTen = _.take(sorted,10)
+  result = _.object(topTen)
+  console.log(topTen)
+    return topTen
+}
+
 function solution4(){
-
     // user location with the number of original tweets
-
     var man = _.filter(items,function(n){
       return n['User Location'] == "Kathmandu, Nepal"
     })
-
-
     var location = _.groupBy(man,function(n){
       return n['User Location']
     })
-
     
     var tweet = _.mapValues(location,function(n){
       return _.filter(n,function(d){
         return d['Rt'] == "Original Tweet (probably)" 
       }).length
-
     })
-
     console.log(tweet)
     
     return "There are " + _.values(tweet) + " original tweets in Kathmandu, Nepal"
@@ -261,11 +248,12 @@ function loadDataThenRunSolutions(){
         console.log('number of items loaded:', items.length)
         console.log('first item', items[0])
 
-       run('#qKari', solutionKari, items)
        run('#q1', solution1, items)
        run('#q2', solution2, items)
        run('#q3', solution3, items)
        run('#q4', solution4, items)
+       run('#qKari', solutionKari, items)
+
      })
      .fail(function(err){
          console.error(err)

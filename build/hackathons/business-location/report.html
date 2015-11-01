@@ -12,7 +12,7 @@
 
 <div class="container">
 
-    <h1>Where should we build a new 24-hours diner?</h1>
+    <h1>Where should we build a 24 hour diner?</h1>
 
     <section id="candidates" class="question">
         <h4>Where are the six candidate locations?</h4>
@@ -52,101 +52,78 @@ function getCandidateLocations(){
 // Scoring Functions
 //
 
-function has_at_least_one_mcdonald_within_one_mile(loc){
+function has_at_least_one_nightlife_within_1km(loc){
 
   // get businesses within 1 mile radius
   var nearbyBusinesses = _.filter(items, function(item){
     var loc2  = _.pick(item, ['latitude', 'longitude'])
     var d = geolib.getDistance(loc, loc2)
-    return geolib.convertUnit('mi', d) < 1
+    return geolib.convertUnit('km', d) <= 1
   })
 
-  var hasAtLeastOneMcDonald = _.some(nearbyBusinesses, function (business){
-    return business.name.match(/McDonald/)
+  var hasAtLeastOne= _.some(nearbyBusinesses, function (business){
+      
+    return _.includes(business.categories,"Nightlife");
   })
+ 
 
-  return hasAtLeastOneMcDonald
+  return hasAtLeastOne
 }
 
-function has_at_least_ten_businesses_with_100_or_more_reviews_within_one_mile(loc){
+function has_no_wine_bars_within_2km(loc){
+
   // get businesses within 1 mile radius
   var nearbyBusinesses = _.filter(items, function(item){
     var loc2  = _.pick(item, ['latitude', 'longitude'])
     var d = geolib.getDistance(loc, loc2)
-    return geolib.convertUnit('mi', d) < 1
+    return geolib.convertUnit('km', d) <= 2
   })
 
-  var frequentlyReviewedBusinsses = _.filter(nearbyBusinesses, function (business){
-    return business.review_count >= 100
+  var hasAtLeastOne= _.some(nearbyBusinesses, function (business){
+      
+    return  _.includes(business.categories,"Wine Bars");
   })
+ 
 
-  return frequentlyReviewedBusinsses.length > 10
+  return !hasAtLeastOne
 }
 
-function other_24_hour_diners_nearby(loc){
-  // get businesses within 2 km radius
+function has_no_juice_bars_within_1km(loc){
+
+  // get businesses within 1 mile radius
   var nearbyBusinesses = _.filter(items, function(item){
     var loc2  = _.pick(item, ['latitude', 'longitude'])
     var d = geolib.getDistance(loc, loc2)
-    return d/1000 < 2
+    return geolib.convertUnit('km', d) <= 1
   })
-  //filter by 24 hour diners
-  var nearby24Hour = _.filter(nearbyBusinesses, function (business){
-    return business.attributes['Open 24 Hours'] 
-  })
-  //filter out diners
-  var diners = _.filter(nearby24Hour, function (business){
-    return business.categories['Diners'] 
-  })
-  return (diners.length > 0)
-}
 
-function any_schools_within_one_and_half_km(loc){
-   // get businesses within 1.5 km radius
-  var nearbyBusinesses = _.filter(items, function(item){
-    var loc2  = _.pick(item, ['latitude', 'longitude'])
-    var d = geolib.getDistance(loc, loc2)
-    return d/1000 < 1.5
-  })
-  //filter by high school and middle schools
-  var schools = _.some(nearbyBusinesses, function (n){
-    return _.some(n['categories'],function(d){
-      return d.match(/igh/)
+  var hasAtLeastOne= _.some(nearbyBusinesses, function (business){
+      
+    return  _.some(business.categories, function(d) {
+            return d.match(/Juice/);
+        });
     })
-  })
-  return schools
+  return !hasAtLeastOne
 }
 
-function hotels_within_one_and_half_km(loc){
-  // get businesses within 2.1 km radius
+function has_no_latenight_restaurants_within_1km(loc){
+
+  // get businesses within 1 mile radius
   var nearbyBusinesses = _.filter(items, function(item){
     var loc2  = _.pick(item, ['latitude', 'longitude'])
     var d = geolib.getDistance(loc, loc2)
-    return d/1000 < 1.5
+    return geolib.convertUnit('km', d) <= 1
   })
-  //filter by hotel
-  var hotels = _.some(nearbyBusinesses, function (n){
-    return _.some(n['categories'],function(d){
-      return d.match(/otels/)
+
+  var hasAtLeastOne= _.some(nearbyBusinesses, function (business){
+      
+    //
+            return business.attributes && business.attributes["Good For"] &&   business.attributes["Good For"].latenight      
+         // });
     })
-  })
-  return hotels
+  return !hasAtLeastOne
 }
 
-function has_music_venues_within_one_and_half_km(loc){
-  // get businesses within 2.0 km radius
-  var nearbyBusinesses = _.filter(items, function(item){
-    var loc2  = _.pick(item, ['latitude', 'longitude'])
-    var d = geolib.getDistance(loc, loc2)
-    return d/1000 < 1.5
-  })
-  var venues = _.filter(nearbyBusinesses, function (business){
-    return _.contains(business.categories,'Music Venues') 
-  })
-  console.log(venues)
-  return (venues.length > 0)
-}
-// TODO: Add more scoring functions
 
 //
 // Compute a score for a location using the provided scoring function 'scoreFunc'
@@ -246,12 +223,11 @@ function loadDataThenRunSolutions(){
 
       console.log('scoring all candidate locations')
 
-      scoreAndVisualize(locs, has_at_least_one_mcdonald_within_one_mile, visualize_true_or_false)
-      scoreAndVisualize(locs, has_at_least_ten_businesses_with_100_or_more_reviews_within_one_mile, visualize_true_or_false)
-      scoreAndVisualize(locs, other_24_hour_diners_nearby, visualize_true_or_false)
-      scoreAndVisualize(locs, any_schools_within_one_and_half_km, visualize_true_or_false)
-      scoreAndVisualize(locs, hotels_within_one_and_half_km, visualize_true_or_false)
-      scoreAndVisualize(locs, has_music_venues_within_one_and_half_km, visualize_true_or_false)
+ 
+      scoreAndVisualize(locs, has_at_least_one_nightlife_within_1km, visualize_true_or_false)
+      scoreAndVisualize(locs, has_no_wine_bars_within_2km, visualize_true_or_false)
+      scoreAndVisualize(locs, has_no_latenight_restaurants_within_1km, visualize_true_or_false)
+      scoreAndVisualize(locs, has_no_juice_bars_within_1km, visualize_true_or_false)
 
    })
    .fail(function(err){
