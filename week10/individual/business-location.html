@@ -52,29 +52,76 @@ function getCandidateLocations(){
 // Scoring Functions
 //
 
-function has_some_feature_1(loc){
-  // TODO
-  return true
+function has_hospital_within_five_km(loc){
+  var nearbyBusinesses = _.filter(items, function(item){
+    var loc2  = _.pick(item, ['latitude', 'longitude'])
+    var d = geolib.getDistance(loc, loc2)
+    return d/1000 < 5
+  })
+  //console.log(nearbyBusinesses)
+  var hospitals = _.filter(nearbyBusinesses, function (business){
+    return _.contains(business.categories, "Hospitals")
+  })
+  //console.log(hospitals)
+  return hospitals.length > 0
 }
 
-function has_some_feature_2(loc){
-  // TODO
-  return false
+function health_centers_within_one_pt_five_km(loc){
+  // get businesses within 2.1 km radius
+  var nearbyBusinesses = _.filter(items, function(item){
+    var loc2  = _.pick(item, ['latitude', 'longitude'])
+    var d = geolib.getDistance(loc, loc2)
+    return d/1000 < 1.5
+  })
+  //filter by hotel
+  var health = _.some(nearbyBusinesses, function (n){
+    return _.some(n['categories'],function(d){
+      return d.match(/Health/)
+    })
+  })
+  return health
 }
 
-function has_some_feature_3(loc){
-  // TODO
-  return true
+function has_juice_bars_within_1km(loc){
+  // get businesses within 1 mile radius
+  var nearbyBusinesses = _.filter(items, function(item){
+    var loc2  = _.pick(item, ['latitude', 'longitude'])
+    var d = geolib.getDistance(loc, loc2)
+    return geolib.convertUnit('km', d) <= 1
+  })
+  var hasAtLeastOne= _.some(nearbyBusinesses, function (business){
+      
+    return  _.some(business.categories, function(d) {
+            return d.match(/Juice/);
+        });
+    })
+  return hasAtLeastOne
 }
 
-function has_some_feature_4(loc){
-  // TODO
-  return false
+function has_fast_food_within_one_and_half_km(loc){
+  var nearbyBusinesses = _.filter(items, function(item){
+    var loc2  = _.pick(item, ['latitude', 'longitude'])
+    var d = geolib.getDistance(loc, loc2)
+    return d/1000 < 1.5
+  })
+  var fastFood = _.filter(nearbyBusinesses, function (business){
+    return _.contains(business.categories,'Fast Food') 
+  })
+  console.log(fastFood)
+  return (fastFood.length > 0)
 }
 
-function has_some_feature_5(loc){
-  // TODO
-  return false
+function has_sporting_goods_within_two_km(loc){
+  var nearbyBusinesses = _.filter(items, function(item){
+    var loc2  = _.pick(item, ['latitude', 'longitude'])
+    var d = geolib.getDistance(loc, loc2)
+    return d/1000 < 2.0
+  })
+  var sg = _.filter(nearbyBusinesses, function (business){
+    return _.contains(business.categories,'Sporting Goods') 
+  })
+  console.log(sg)
+  return (sg.length > 0)
 }
 
 //
@@ -175,11 +222,11 @@ function loadDataThenRunSolutions(){
 
       console.log('scoring all candidate locations')
 
-      scoreAndVisualize(locs, has_some_feature_1, visualize_true_or_false)
-      scoreAndVisualize(locs, has_some_feature_2, visualize_true_or_false)
-      scoreAndVisualize(locs, has_some_feature_3, visualize_true_or_false)
-      scoreAndVisualize(locs, has_some_feature_4, visualize_true_or_false)
-      scoreAndVisualize(locs, has_some_feature_5, visualize_true_or_false)
+      scoreAndVisualize(locs, has_hospital_within_five_km, visualize_true_or_false)
+      scoreAndVisualize(locs, health_centers_within_one_pt_five_km, visualize_true_or_false)
+      scoreAndVisualize(locs, has_juice_bars_within_1km, visualize_true_or_false)
+      scoreAndVisualize(locs, has_fast_food_within_one_and_half_km, visualize_true_or_false)
+      scoreAndVisualize(locs,  has_sporting_goods_within_two_km, visualize_true_or_false)
 
    })
    .fail(function(err){
