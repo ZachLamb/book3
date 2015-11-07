@@ -90,7 +90,7 @@ function update(tweet){
   has_observed_five_tweets(tweets)
   has_observed_two_tweets_in_a_row_about_the_crash(tweets)
   has_observed_putin(tweets)
-  has_observed_israel_and_russia(tweet)
+  has_observed_israel(tweet)
   has_been_retweeted(tweet)
   has_observed_verified_user(tweet)
   has_observed_over_thousand_followers(tweet)
@@ -146,7 +146,7 @@ function has_observed_putin(tweets){
 }
 
 function has_observed_israel_and_russia(tweet){
-  if (tweet.text.match(/.*Israel.*/) && tweet.text.match(/.*Russia.*/)) {
+  if (tweet.text.match(/.*Israel.*/){
     emit_event('Last one involved Israel and Russia ')
   }
 }
