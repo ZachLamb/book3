@@ -38,7 +38,7 @@
     <div class="parallax">
       <img src="cloud.jpg">
       <h1 id="title">What is everyone in the class's activity?
-        <div class="authors">by Name</div>
+        <div class="authors">by Zach Lamb</div>
       </h1>
     </div>
   </div>
@@ -121,14 +121,14 @@ function analyze(events){
 
   ask(how_many_individuals_analyzed_so_far, events)
   ask(whose_data_is_available, events)
-  ask(question1, events)
-  ask(question2, events)
-  ask(question3, events)
-  ask(question4, events)
-  ask(question5, events)
-  ask(question6, events)
-  ask(question7, events)
-  ask(question8, events)
+  ask(total_events_for_everyone, events)
+  ask(how_many_gmails, events)
+  ask(how_many_emails_we_got_today, events)
+  ask(how_many_students_include_github_account, events)
+  ask(how_many_students_include_facebook_for_their_online_account, events)
+  ask(how_many_students_include_slack_for_their_online_account, events)
+  ask(how_many_people_used_correct_path_for_gmail, events)
+  ask(how_many_students_include_linkedin_for_their_online_account, events)
   ask(question9, events)
   ask(question10, events)
 }
@@ -141,44 +141,92 @@ function whose_data_is_available(events){
   return _.keys(events).join(' , ')
 }
 
-function question1(events){
-  return '...'
+function total_events_for_everyone(events){
+   var map = _.mapValues(events, function(n){
+    return _.sum(_.pairs(n), function(d){
+      return _.values(d[1]).length
+    })
+  })
+  return _.map(map, function(group,key){
+      return  key + ": " + group
+    })
 }
 
-function question2(events){
-  return '...'
+function how_many_gmails(events){
+  var gmail = _.mapValues(events, function(n){
+    if (_.contains(_.keys(n), 'gmail')) return _.size(n.gmail)
+    else return 'n/a'
+  })
+  //console.log(gmail)
+  return _.map(gmail, function(group,key){
+      return  key + ":" + group
+    })
 }
 
-function question3(events){
-  return '...'
+function how_many_emails_we_got_today(events){
+  var pairs=_.pairs(events)
+  var filt=_.filter(pairs, function(p){
+    return p[1] != null && p[1]["gmail"] != null
+  })
+  var map_filt=_.map(filt, function(f){
+    return {
+      "name": f[0],
+      "emails": _.pairs(f[1]["gmail"])
+    }
+  })
 }
 
-function question4(events){
-  return '...'
+function how_many_students_include_github_account(events){
+  var ghAccount = _.filter(events,function(n){
+    return _.includes(_.keys(n),'github')
+  }).length
+  return ghAccount
 }
 
-function question5(events){
-  return '...'
+function how_many_students_include_facebook_for_their_online_account(events){
+  var facebook = _.filter(events,function(n){
+    return _.includes(_.keys(n),'facebook')
+  }).length
+  console.log(facebook)
+  return facebook
+}
+function how_many_students_include_slack_for_their_online_account(events){
+  var slack = _.filter(events,function(n){
+    return _.includes(_.keys(n),'slack')
+  }).length
+  console.log(slack)
+  return slack
+}
+function how_many_people_used_correct_path_for_gmail(events){
+var pairs=_.pairs(events)
+  console.log("pairs: ", pairs)
+  return _.filter(pairs, function(p){
+    return p[1] != null && p[1]["gmail"] != null
+  }).length
 }
 
-function question6(events){
-  return '...'
+function how_many_students_include_linkedin_for_their_online_account(events){
+  var linked = _.filter(events,function(n){
+    return _.includes(_.keys(n),'Linked In')
+  }).length
+  console.log(linked)
+  return linked
 }
 
-function question7(events){
-  return '...'
+function how_many_students_include_piazza_for_their_online_account(events){
+  var piazza = _.filter(events,function(n){
+    return _.includes(_.keys(n),'piazza')
+  }).length
+  console.log(piazza)
+  return piazza
 }
 
-function question8(events){
-  return '...'
-}
-
-function question9(events){
-  return '...'
-}
-
-function question10(events){
-  return '...'
+function how_many_students_include_asana_for_their_online_account(events){
+  var asana = _.filter(events,function(n){
+    return _.includes(_.keys(n),'asana')
+  }).length
+  console.log(asana)
+  return asana
 }
 
 
