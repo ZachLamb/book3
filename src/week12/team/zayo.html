@@ -14,7 +14,7 @@
     <h1>Zayo Group Analysis</h1>
 
     <section id="q1" class="question">
-        <h4>?</h4>
+        <h4>How much of each product is bought?</h4>
         <div class="answer"></div>
     </section>
 </div>
@@ -29,13 +29,26 @@
 var items   // global scope (i.e., can be accessed in javascript console)
 
 function solution1(){
-	var productC = _.groupBy(items,function(d){
-        return d['Product C Rank']
-    })
-    console.log(productC)
-    sorted = _.sortByOrder(productC,"desc")
-    result = _.toArray(arguments).slice(1)
-	return result
+	function product(product,prodLetter){
+		var productName = items.map(function(d) {return d[product];});
+		console.log(productName)
+		var arrayLength = productName.length;
+		var result = productName
+		for (var i = 0; i < arrayLength; i++) {
+	    	result[i] = parseFloat(productName[i].replace(/,/g, ''));
+	    //Do something
+		}
+		result = _.filter(result,function(d){
+			return d > 0
+		})
+		return "product " + prodLetter + ": " + result.length
+	}
+	var A = product('Product A Total BRR',"A")
+	var B = product('Product B Total BRR',"B")
+	var C = product('Product C Total BRR',"C")
+	var D = product('Product D Total BRR',"D")
+	var F = product('Product F - Metro Rank',"F")
+	return A + "</br>" + B + "</br>" + C + "</br>" + D + "</br>" + F
 }
 function run(id, solutionFunc, data){
     console.log('run solution for ' + id)
