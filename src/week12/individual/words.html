@@ -118,7 +118,7 @@ function ask(text, func){
 }
 
 function analyze(){
-  ask('how many decades in the dataset?', example)
+  ask('how many decades are in the dataset?', example)
   ask('what words were created in recent decades?', func1)
   ask('What is the usage change of the word internet?', func2)
   ask('when did the word oil become more popular than ?', func3)
@@ -136,12 +136,8 @@ function analyze(){
   toggleSourecode()
 }
 
-// How many decades are there in the data set?
-
 function example(){
   return _.unique(_.pluck(items, 'decade')).length
-}
-// What words only came into fashion in recent decades?
 
 function func1(){
   topItems = _.filter(items, function(i) { return i.rank < 250 })
