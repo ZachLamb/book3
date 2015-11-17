@@ -11,10 +11,19 @@
 
 <div class="container">
 
-    <h1>Zayo Group Analysis</h1>
-
+    <h1 id="title">Zayo
+        <div class="authors">by Andrew Linenfelser, Zach Lamb, Ming Liew </div>
+      </h1>
     <section id="q1" class="question">
         <h4>How much of each product is bought?</h4>
+        <div class="answer"></div>
+    </section>
+    <section id="q2" class="question">
+        <h4>Andrew's Question</h4>
+        <div class="answer"></div>
+    </section>
+    <section id="q3" class="question">
+        <h4>Ming's Question</h4>
         <div class="answer"></div>
     </section>
 </div>
@@ -50,12 +59,56 @@ function solution1(){
 	var F = product('Product F - Metro Rank',"F")
 	return A + "</br>" + B + "</br>" + C + "</br>" + D + "</br>" + F
 }
+
+function solution2(){
+  console.log('items:::::', items)
+  var sort = _.sortByOrder(items, function(d){
+    return d['Total (BRR)']//change to total (BRR) when fixed
+  })
+  console.log('sort', sort)
+  var best = sort[sort.length-1]
+  console.log('best: ', best)
+  return 'the best Total BRR is ' + best['Total (BRR)'] + ' and the industry is ' + best.Industry
+  // var healthcare = _.groupBy(items,function(d){
+  //       return d.Industry == 'Health Insurance'
+  //   })['true']
+  // console.log('healthcare', healthcare)
+  
+  // var brr = _.pick(healthcare, function(d){
+  //   return d['Product A Total BRR'] || d['Product B Total BRR'] || d['Product C Total BRR']
+  // })
+  // console.log('brr: ', brr)
+}
+function solution3(){
+	var products=_.groupBy(items, function(g){
+    return g.Industry
+  })
+  var key = _.map(products, function(x,k){
+   return k
+  })
+  var s = _.map(products, function(x,k){
+    var sum = 0
+    _.forEach(x, function(s){
+      var a =parseInt(s['Total'].split("$")[1].split('.')[0].split(',').join(''));
+      sum = sum+ a;
+    })
+   return sum
+  })
+  console.log(s)
+  console.log(key)
+  var result = ''
+  var ctr = 0
+  _.forEach(key,function(x){
+    result += x + " : " + s[ctr] + ' ; '
+    ctr++
+  })
+  return result
+}
 function run(id, solutionFunc, data){
     console.log('run solution for ' + id)
     var answer = solutionFunc(data)
     $(id).find('.answer').html(answer)
 }
-
 function loadDataThenRunSolutions(){
     $.get({url: '../Team/profile.json'})
      .done(function(data){
@@ -68,6 +121,8 @@ function loadDataThenRunSolutions(){
          console.log('first item', items[0])
 
          run('#q1', solution1, items)
+         run('#q2', solution2, items)
+         run('#q3', solution3, items)
      })
      .fail(function(err){
          console.error(err)
