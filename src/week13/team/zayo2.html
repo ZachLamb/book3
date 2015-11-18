@@ -46,71 +46,24 @@
 var items   // global scope (i.e., can be accessed in javascript console)
 
 function solution1(){
-	function product(product,prodLetter){
-		var productName = items.map(function(d) {return d[product];});
-		console.log(productName)
-		var arrayLength = productName.length;
-		var result = productName
-		for (var i = 0; i < arrayLength; i++) {
-	    	result[i] = parseFloat(productName[i].replace(/,/g, ''));
-	    //Do something
-		}
-		result = _.filter(result,function(d){
-			return d > 0
-		})
-		return "product " + prodLetter + ": " + result.length
-	}
-	var A = product('Product A Total BRR',"A")
-	var B = product('Product B Total BRR',"B")
-	var C = product('Product C Total BRR',"C")
-	var D = product('Product D Total BRR',"D")
-	var F = product('Product F - Metro Rank',"F")
-	return A + "</br>" + B + "</br>" + C + "</br>" + D + "</br>" + F
-}
+//  var p = profile
+//   console.log('profile: ', p)
+
+//   var industry = _.forEach(_.mapValues(profile, function(d){
+//     return{
+//       'industry' : d.industry,
+//       'BRR' : 'd.
+//     }
+//   }))
+
+// }
 
 function solution2(){
-  console.log('items:::::', items)
-  var sort = _.sortByOrder(items, function(d){
-    return d['Total (BRR)']//change to total (BRR) when fixed
-  })
-  console.log('sort', sort)
-  var best = sort[sort.length-1]
-  console.log('best: ', best)
-  return 'the best Total BRR is ' + best['Total (BRR)'] + ' and the industry is ' + best.Industry
-  // var healthcare = _.groupBy(items,function(d){
-  //       return d.Industry == 'Health Insurance'
-  //   })['true']
-  // console.log('healthcare', healthcare)
-  
-  // var brr = _.pick(healthcare, function(d){
-  //   return d['Product A Total BRR'] || d['Product B Total BRR'] || d['Product C Total BRR']
-  // })
-  // console.log('brr: ', brr)
+  // var c = customer
+  // console.log('customer: ', c)
 }
 function solution3(){
-	var products=_.groupBy(items, function(g){
-    return g.Industry
-  })
-  var key = _.map(products, function(x,k){
-   return k
-  })
-  var s = _.map(products, function(x,k){
-    var sum = 0
-    _.forEach(x, function(s){
-      var a =parseInt(s['Total'].split("$")[1].split('.')[0].split(',').join(''));
-      sum = sum+ a;
-    })
-   return sum
-  })
-  console.log(s)
-  console.log(key)
-  var result = ''
-  var ctr = 0
-  _.forEach(key,function(x){
-    result += x + " : " + s[ctr] + ' ; '
-    ctr++
-  })
-  return result
+  return '...'
 }
 function solution4(){
   return '...'
@@ -124,21 +77,42 @@ function run(id, solutionFunc, data){
     $(id).find('.answer').html(answer)
 }
 function loadDataThenRunSolutions(){
-    $.get({url: '../Team/profile.json'})
+    $.get({url: '../team/profile.json'})
      .done(function(data){
         //  var lines = data.trim().split('\n')
-        items = data
+        profile = data
          // convert text lines to json arrays and save them in `items`
         //  items = _.map(lines, JSON.parse)
 
-         console.log('number of items loaded:', items.length)
-         console.log('first item', items[0])
+         console.log('number of profile items loaded:', profile.length)
+         console.log('first profile item', profile[0])
 
-         run('#q1', solution1, items)
-         run('#q2', solution2, items)
-         run('#q3', solution3, items)
-         run('#q4', solution4, items)
-         run('#q5', solution5, items)
+         run('#q1', solution1, profile)
+         //run('#q2', solution2, profile)
+         run('#q3', solution3, profile)
+         run('#q4', solution4, profile)
+         run('#q5', solution5, profile)
+     })
+     .fail(function(err){
+         console.error(err)
+     })
+}
+function loadDataThenRunSolutions2(){
+    $.get({url: '../team/customer.json'})
+     .done(function(data){
+        //  var lines = data.trim().split('\n')
+        accounts = data
+         // convert text lines to json arrays and save them in `items`
+        //  items = _.map(lines, JSON.parse)
+
+         console.log('number of accounts items loaded:', accounts.length)
+         console.log('first accounts item', accounts[0])
+
+         //run('#q1', solution1, customer)
+         run('#q2', solution2, accounts)
+         run('#q3', solution3, accounts)
+         run('#q4', solution4, accounts)
+         run('#q5', solution5, accounts)
      })
      .fail(function(err){
          console.error(err)
@@ -146,6 +120,7 @@ function loadDataThenRunSolutions(){
 }
 
 loadDataThenRunSolutions()
+loadDataThenRunSolutions2()
 
     </script>
 
