@@ -74,7 +74,21 @@ function example3(){
 }
 
 function func1(){
-  return '...'
+  var objSam =_.map(items, function(d) { 
+    return _.pluck(d,'Samples'); 
+  });
+  samp =  _.groupBy(objSam,function(d){
+    return d.Samples
+  });
+
+  console.log(samp)
+  samp = _.forEach(samp,function(d){
+    return _.flatten(d)
+  })
+  var result = _.filter(samp, function(d){
+    return d > 0
+  })
+  return result.length
 }
 
 function func2(){
