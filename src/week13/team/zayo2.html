@@ -46,21 +46,26 @@
 var items   // global scope (i.e., can be accessed in javascript console)
 
 function solution1(){
-//  var p = profile
-//   console.log('profile: ', p)
-
-//   var industry = _.forEach(_.mapValues(profile, function(d){
-//     return{
-//       'industry' : d.industry,
-//       'BRR' : 'd.
-//     }
-//   }))
-
-// }
-
+return '...'
+}
+// If Zayo only had enough team members to focus on two products, which products would you prioritize?
 function solution2(){
-  // var c = customer
-  // console.log('customer: ', c)
+  
+  function product(product,prodLetter){
+    var productName = profile.map(function(d) {return d[product];});
+    // console.log(productName)
+    var result = _.filter(productName,function(d){
+      return d > 0
+    })
+    console.log(result)
+    return "product " + prodLetter + ": " + result.length
+    }
+    var A = product('Product A Total BRR',"A")
+    var B = product('Product B Total BRR',"B")
+    var C = product('Product C Total BRR',"C")
+    var D = product('Product D Total BRR',"D")
+    var F = product('Product F - Metro Rank',"F")
+  return "How many times each product is purchased" +"</br>"+A + "</br>" + B + "</br>" + C + "</br>" + D + "</br>" + F + "</br>"+ "</br>" + '<img src="ProductsTotalBRR.jpg" alt="Products Total BRR">'+ "</br>"+ "</br>" + '<img src="productBrr.jpg"' + "</br>"+ "</br>" + '<img src="rank.jpg" alt="Products Rank Bar Graph">'
 }
 function solution3(){
   return '...'
@@ -88,10 +93,10 @@ function loadDataThenRunSolutions(){
          console.log('first profile item', profile[0])
 
          run('#q1', solution1, profile)
-         //run('#q2', solution2, profile)
-         run('#q3', solution3, profile)
-         run('#q4', solution4, profile)
-         run('#q5', solution5, profile)
+         run('#q2', solution2, profile)
+         // run('#q3', solution3, profile)
+         // run('#q4', solution4, profile)
+         // run('#q5', solution5, profile)
      })
      .fail(function(err){
          console.error(err)
@@ -109,7 +114,7 @@ function loadDataThenRunSolutions2(){
          console.log('first accounts item', accounts[0])
 
          //run('#q1', solution1, customer)
-         run('#q2', solution2, accounts)
+         //run('#q2', solution2, accounts)
          run('#q3', solution3, accounts)
          run('#q4', solution4, accounts)
          run('#q5', solution5, accounts)
