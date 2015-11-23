@@ -50,22 +50,63 @@ return '...'
 }
 // If Zayo only had enough team members to focus on two products, which products would you prioritize?
 function solution2(){
-  
-  function product(product,prodLetter){
-    var productName = profile.map(function(d) {return d[product];});
-    // console.log(productName)
-    var result = _.filter(productName,function(d){
-      return d > 0
-    })
-    console.log(result)
-    return "product " + prodLetter + ": " + result.length
+var newServ = _.forEach(_.map(services, function(d){
+    return{
+      "Product": d.Product, 
+      "Name/ID": parseInt(d['Name/ID']), 
+      "Service Status": d['Service Status'], 
+      "Number of Services": parseInt(d['Number of Services']), 
+      "State A": d['State A'], 
+      "Total MRR":parseFloat(d['Total MRR']), 
+      "State Z": d['State Z'], 
+      "Bandwidth": d.Bandwidth, 
+      "Term": parseInt(d.Term), 
+      "Service Name": parseInt(d['Service Name'])
     }
-    var A = product('Product A Total BRR',"A")
-    var B = product('Product B Total BRR',"B")
-    var C = product('Product C Total BRR',"C")
-    var D = product('Product D Total BRR',"D")
-    var F = product('Product F - Metro Rank',"F")
-  return "How many times each product is purchased" +"</br>"+A + "</br>" + B + "</br>" + C + "</br>" + D + "</br>" + F + "</br>"+ "</br>" + '<img src="ProductsTotalBRR.jpg" alt="Products Total BRR">'+ "</br>"+ "</br>" + '<img src="productBrr.jpg"' + "</br>"+ "</br>" + '<img src="rank.jpg" alt="Products Rank Bar Graph">'
+  }))
+//filter out any non active accounts
+var filtered = _.omit(newServ, function(value, key) {
+     return key == 'Disconnected' || key == 'Pending Disconnect';
+ })
+console.log(filtered)
+var products = 
+_.groupBy(filtered,'Product')
+// console.log(products)
+/* Then collect course and instructor ratings for each depatment, ignoring null ratings. */
+var product_mrrs = 
+_.mapValues(products,
+    function(d) {
+        return _.filter(
+            _.pluck(d, 'Total MRR'),
+            function(e) {return e != 0}
+        )
+    }
+ )
+
+ console.log(product_mrrs)
+
+/* Next, calculate average rating per department */
+var avg_product_mrr = 
+_.mapValues(product_mrrs, 
+    function(c) {return _.sum(c)/c.length}
+)
+console.log(avg_product_mrr)
+// /* Finally convert object to array type and sort by ratings */
+var result =
+_.sortByOrder(
+    _.pairs(avg_product_mrr),
+    function(c) {return c[1]},
+    'desc'
+)
+result = _.object(result)
+result = _.omit(result,function(value,key){
+    return _.isNaN(value)
+})
+console.log(result)
+result = (_.pairs(result)).join('</br>');
+var myConclusion = "From the second data set, I removed any accounts that were not connected or will soon be disconnected. I then did an average of each product which is shown below in descending order" + '</br>' + result + '</br>' + '</br>' 
+var previousConclusion = "From the first dataset, we averaged the products on there as well" + '</br>' + '</br>' + '<img src="ProductsTotalBRR.jpg" alt="Product Total">' + '</br>' +"You can visually see that product B is a lot more popular below" + '</br>' + '<img src="productBrr.jpg" alt="Product BRR">' + '</br>' + "Ranking for B is terrible. We recomend focusing on Products C and D." + '</br>' + '<img src="rank.jpg" alt="Rank">'
+return myConclusion + previousConclusion
 }
 function solution3(){
   return '...'
@@ -93,7 +134,7 @@ function loadDataThenRunSolutions(){
          console.log('first profile item', profile[0])
 
          run('#q1', solution1, profile)
-         run('#q2', solution2, profile)
+         // run('#q2', solution2, profile)
          // run('#q3', solution3, profile)
          // run('#q4', solution4, profile)
          // run('#q5', solution5, profile)
@@ -118,6 +159,27 @@ function loadDataThenRunSolutions2(){
          run('#q3', solution3, accounts)
          run('#q4', solution4, accounts)
          run('#q5', solution5, accounts)
+     })
+     .fail(function(err){
+         console.error(err)
+     })
+}
+function loadDataThenRunSolutions(){
+    $.get({url: '../team/services.json'})
+     .done(function(data){
+        //  var lines = data.trim().split('\n')
+        services = data
+         // convert text lines to json arrays and save them in `items`
+        //  items = _.map(lines, JSON.parse)
+
+         console.log('number of services items loaded:', services.length)
+         console.log('first services item', services[0])
+
+         // run('#q1', solution1, profile)
+         run('#q2', solution2, services)
+         // run('#q3', solution3, profile)
+         // run('#q4', solution4, profile)
+         // run('#q5', solution5, profile)
      })
      .fail(function(err){
          console.error(err)
