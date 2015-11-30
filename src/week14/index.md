@@ -16,5 +16,4 @@ layout: layout.hbs
 - [We would prioritize Elan and Standard Wavelength](http://zachlamb.github.io/book3/week13/team/zayo2.html)
 
 # Of the Tranzact accounts that have services: What industries/verticals spend the most money and on what products/services?
-
 -[We would prioritize potential customers by which industries have the most sales and revenue and choose the next customers based off of that.](http://linenfelser.github.io/book3/week13/team/zayoII.html)
