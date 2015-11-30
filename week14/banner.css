@@ -1,0 +1,11 @@
+#banner {
+    background:url('backdrop.jpg');
+    width:100%;
+    min-height:250px;
+    background-repeat: no-repeat;
+}
+#content {
+	color: #384554;
+	text-align: center;
+	font-size: 60px;
+}
