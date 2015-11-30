@@ -1,4 +1,4 @@
-<html>
+ <html>
 <head>
     <style>
         .answer {
@@ -16,10 +16,10 @@
       </h1>
     <section id="q2" class="question">
         <h4> If Zayo only had enough team members to focus on two products, which products would you prioritize?</h4>
+        <script id="infogram_0_which_product-549" title="Which Product?" src="//e.infogr.am/js/embed.js?MWp" type="text/javascript"></script><div style="width:100%;padding:8px 0;font-family:Arial;font-size:13px;line-height:15px;text-align:center;"><a target="_blank" href="https://infogr.am/which_product-549" style="color:#989898;text-decoration:none;">Which Product?</a><br><a style="color:#989898;text-decoration:none;" href="http://charts.infogr.am/pie-chart?utm_source=embed_bottom&utm_medium=seo&utm_campaign=pie_chart" target="_blank">Which Product?</a></div>
         <div class="answer"></div>
     </section>
 </div>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
@@ -65,14 +65,41 @@ _.mapValues(products,
  )
 
  console.log(product_mrrs)
-
-/* Next, calculate average rating per department */
+var product_term = _.mapValues(products,
+    function(d) {
+        return _.filter(
+            _.pluck(d, 'Term'),
+            function(e) {return e != 0}
+        )
+    }
+ )
+/* Next, calculate average mrr per product */
 var avg_product_mrr = 
 _.mapValues(product_mrrs, 
     function(c) {return _.sum(c)/c.length}
 )
 console.log(avg_product_mrr)
+var avg_product_term = 
+_.mapValues(product_term, 
+    function(c) {return _.sum(c)/c.length}
+)
+// calculate average term for each product
 // /* Finally convert object to array type and sort by ratings */
+var termResult =
+_.sortByOrder(
+    _.pairs(avg_product_term),
+    function(c) {return c[1]},
+    'desc'
+)
+
+termResult = _.object(termResult)
+termResult = _.omit(termResult,function(value,key){
+    return _.isNaN(value)
+})
+
+termResult = (_.pairs(termResult)).join('</br>');
+termResult = termResult.replace(/,/g,": ");
+
 var result =
 _.sortByOrder(
     _.pairs(avg_product_mrr),
@@ -85,7 +112,8 @@ result = _.omit(result,function(value,key){
 })
 console.log(result)
 result = (_.pairs(result)).join('</br>');
-var myConclusion = "From the second data set, I removed any accounts that were not connected or will soon be disconnected. I then did an average of each product which is shown below in descending order" + '</br>' + result + '</br>' + '</br>'  + " I would prioritize Conduit and Standard Wavelength" + '</br>' + '</br>'
+result = result.replace(/,/g,": ");
+var myConclusion = "From the second data set, I removed any accounts that were not connected or will soon be disconnected. I then did an average of each product which is shown below in descending order" + '</br>' + result + '</br>' + '</br>' + "I also did an average of how long each product will be leased/used by a customer" + '</br>' +termResult + '</br>' + '</br>' + " I would prioritize Conduit and Standard Wavelength" + '</br>' + '</br>'
 var previousConclusion = "From the first dataset, we averaged the products on there as well" + '</br>' + '</br>' + '<img src="ProductsTotalBRR.jpg" alt="Product Total">' + '</br>' +"You can visually see that product B is a lot more popular below" + '</br>' + '<img src="productBrr.jpg" alt="Product BRR">' + '</br>' + "Ranking for B is terrible. We recomend focusing on Products C and D." + '</br>' + '<img src="rank.jpg" alt="Rank">'
 return myConclusion + previousConclusion
 }
