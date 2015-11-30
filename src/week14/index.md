@@ -2,7 +2,7 @@
 layout: layout.hbs
 ---
 
-#Zayo Analysis by by Andrew Linenfelser, Zach Lamb, Ming Liew
+Zayo Analysis by by Andrew Linenfelser, Zach Lamb, Ming Liew
 
 # Of the Tranzact accounts without services: Which accounts should Zayo prioritize and why?
 - [We think the top five are the Federal Government, Transportation,Regional Carrier/ISP, Retail, and Telecommmunications](http://linenfelser.github.io/book3/week13/team/zayoII.html)
