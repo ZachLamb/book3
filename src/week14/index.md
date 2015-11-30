@@ -10,7 +10,7 @@ layout: layout.hbs
 - [Solution 2](http://zachlamb.github.io/book3/week13/team/mingTeam/zayo2_4.html)
 
 # If Zayo only had 5 representatives, which states would you prioritize for in­person meetings?
-- [Solution 3](http://zachlamb.github.io/book3/week13/team/mingTeam/zayo2.html)
+- [We would prioritize these states in descending order: IL,TX,AZ,CA,CO.  Prioritization are based on the BRR - MRR for each states.](http://zachlamb.github.io/book3/week13/team/mingTeam/zayo2.html)
 
 # If Zayo only had enough team members to focus on two products, which products would you prioritize?
 - [We would prioritize Elan and Standard Wavelength](http://zachlamb.github.io/book3/week13/team/zayo2.html)
