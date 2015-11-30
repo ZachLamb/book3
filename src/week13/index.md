@@ -7,6 +7,7 @@ layout: layout.hbs
 # Team
 
 - [Zayo - Part II](team/zayo2.html)
+- [Zayo - Part II Ming](mingTeam/zayo2.html)
 
 # Individual
 
