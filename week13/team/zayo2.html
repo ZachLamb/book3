@@ -16,8 +16,9 @@
       </h1>
     <section id="q2" class="question">
         <h4> If Zayo only had enough team members to focus on two products, which products would you prioritize?</h4>
-        <script id="infogram_0_which_product-549" title="Which Product?" src="//e.infogr.am/js/embed.js?MWp" type="text/javascript"></script><div style="width:100%;padding:8px 0;font-family:Arial;font-size:13px;line-height:15px;text-align:center;"><a target="_blank" href="https://infogr.am/which_product-549" style="color:#989898;text-decoration:none;">Which Product?</a><br><a style="color:#989898;text-decoration:none;" href="http://charts.infogr.am/pie-chart?utm_source=embed_bottom&utm_medium=seo&utm_campaign=pie_chart" target="_blank">Which Product?</a></div>
         <div class="answer"></div>
+        <script id="infogram_0_which_product-549" title="Which Product?" src="//e.infogr.am/js/embed.js?MWp" type="text/javascript"></script><div style="width:100%;padding:8px 0;font-family:Arial;font-size:13px;line-height:15px;text-align:center;"><a target="_blank" href="https://infogr.am/which_product-549" style="color:#989898;text-decoration:none;">Which Product?</a><br><a style="color:#989898;text-decoration:none;" href="http://charts.infogr.am/pie-chart?utm_source=embed_bottom&utm_medium=seo&utm_campaign=pie_chart" target="_blank">Which Product?</a></div>
+        
     </section>
 </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js"></script>
@@ -113,9 +114,8 @@ result = _.omit(result,function(value,key){
 console.log(result)
 result = (_.pairs(result)).join('</br>');
 result = result.replace(/,/g,": ");
-var myConclusion = "From the second data set, I removed any accounts that were not connected or will soon be disconnected. I then did an average of each product which is shown below in descending order" + '</br>' + result + '</br>' + '</br>' + "I also did an average of how long each product will be leased/used by a customer" + '</br>' +termResult + '</br>' + '</br>' + " I would prioritize Conduit and Standard Wavelength" + '</br>' + '</br>'
-var previousConclusion = "From the first dataset, we averaged the products on there as well" + '</br>' + '</br>' + '<img src="ProductsTotalBRR.jpg" alt="Product Total">' + '</br>' +"You can visually see that product B is a lot more popular below" + '</br>' + '<img src="productBrr.jpg" alt="Product BRR">' + '</br>' + "Ranking for B is terrible. We recomend focusing on Products C and D." + '</br>' + '<img src="rank.jpg" alt="Rank">'
-return myConclusion + previousConclusion
+var myConclusion = "From the data set, I removed any accounts that were not connected or will soon be disconnected. I then did an average of each product which is shown below in descending order" + '</br>' + result + '</br>' + '</br>' + "I also did an average of how long each product will be leased/used by a customer" + '</br>' +termResult + '</br>' + '</br>' + " I would prioritize Elan and Standard Wavelength" + '</br>' + '</br>'
+return myConclusion
 }
 function run(id, solutionFunc, data){
     console.log('run solution for ' + id)
